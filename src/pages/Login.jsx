@@ -8,7 +8,7 @@ const Login = () => {
   return (
     <div>
       <Container style={{background:"#574759", height:"100vh"}} className="justify-content-center align-content-center">
-        <span style={{fontSize:"200px", color:"#ffffff"}} className="material-symbols-outlined">login</span>
+        <span style={{fontSize:"200px", color:"#ffffff", alignItems:"center"}} className="material-symbols-outlined">login</span>
 
         {/* caixa de email */}
         <FloatingLabel controlId="floatingInput" label="Email" className="mb-3">
@@ -22,8 +22,9 @@ const Login = () => {
 
         <Button variant="light" 
         className="mt-4"
-        size="lg"
-        >Success</Button>
+        size="lg" href="/home">
+          Entrar
+          </Button>
       </Container>
     </div>
   );
