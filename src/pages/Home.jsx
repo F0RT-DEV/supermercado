@@ -1,5 +1,8 @@
 import React from "react";
 import CardProduto from "../components/CardProduto";
+import Container from "react-bootstrap/Container";
+import Navbarra from "../components/Navbarra"
+
 
 const Home = () => {
   const produtos = [
@@ -73,6 +76,7 @@ const Home = () => {
 
   return (
     <div>
+      {/* <Navbarra /> */}
       <h1>Lista de Produtos</h1>
       <Container>
       <div

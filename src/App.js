@@ -7,6 +7,8 @@ import './App.css';
 // importação das paginas
 import Login from './pages/Login';
 import Home from './pages/Home';
+import CadastroProduto from "./pages/CadastroProduto";
+import EditarProduto from "./pages/EditarProduto";
 
 // importação de componentes
 import Navbarra from './components/Navbarra';
@@ -17,13 +19,14 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
-      <Navbarra />
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/home" element={<Home />} />
-      </Routes>
+        <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Login />}/>
+          <Route path="/login" element={<Login />}/>  
+          <Route path="/home" element={<Home />}/> 
+          <Route path="/produto/cadastrar" element={<CadastroProduto />}/>  
+          <Route path="/produto/editar/:id" element={<EditarProduto />}/>     
+        </Routes>
       </BrowserRouter>
     </div>
   );
