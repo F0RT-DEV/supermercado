@@ -1,107 +1,62 @@
+// importando components do bootstrap
 import React from "react";
 import CardProduto from "../components/CardProduto";
 import Container from "react-bootstrap/Container";
-import Navbarra from "../components/Navbarra"
 
+// Importação de componentes
+import Navbarra from "../components/Navbarra";
+
+import { useState, useEffect } from "react";
+
+const url = "http://localhost:5000/produtos"
 
 const Home = () => {
-  const produtos = [
-    {
-      id: 1,
-      nome: "Carne",
-      preco: 99.99,
-      descricao: "E uma carne para carnivoro",
-      categoria: "Carnívoro",
-      imagemUrl:
-        "https://i0.wp.com/www.sindicatoruraldebelavista.com.br/wp-content/uploads/2016/10/carne-vermelha-450x324-1.jpg?fit=450%2C324&ssl=1",
-    },
-
-    {
-      id: 2,
-      nome: "Ovo",
-      preco: 19.99,
-      descricao: "E um ovo de uma galinha",
-      categoria: "Galinha",
-      imagemUrl:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcAFYeuYQREUgjSPH9YV3xAwRSd-odU_uwIA&s",
-    },
-
-    {
-      id: 3,
-      nome: "Lagosta",
-      preco: 39.71,
-      descricao: "E uma Lagosta, eu acho!",
-      categoria: "Peixe-lagosta",
-      imagemUrl:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSeOCm-nNLhr7eHb5fdtx0-WqZ_YnPhN31Yg&s",
-    },
-    {
-      id: 3,
-      nome: "Lagosta",
-      preco: 39.71,
-      descricao: "E uma Lagosta, eu acho!",
-      categoria: "Peixe-lagosta",
-      imagemUrl:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSeOCm-nNLhr7eHb5fdtx0-WqZ_YnPhN31Yg&s",
-    },
-    {
-      id: 3,
-      nome: "Lagosta",
-      preco: 39.71,
-      descricao: "E uma Lagosta, eu acho!",
-      categoria: "Peixe-lagosta",
-      imagemUrl:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSeOCm-nNLhr7eHb5fdtx0-WqZ_YnPhN31Yg&s",
-    },
-    {
-      id: 3,
-      nome: "Lagosta",
-      preco: 39.71,
-      descricao: "E uma Lagosta, eu acho!",
-      categoria: "Peixe-lagosta",
-      imagemUrl:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSeOCm-nNLhr7eHb5fdtx0-WqZ_YnPhN31Yg&s",
-    },
-    {
-      id: 3,
-      nome: "Lagosta",
-      preco: 39.71,
-      descricao: "E uma Lagosta, eu acho!",
-      categoria: "Peixe-lagosta",
-      imagemUrl:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSeOCm-nNLhr7eHb5fdtx0-WqZ_YnPhN31Yg&s",
-    },
-    
-  ];
+  const [produtos, setProdutos] = useState([])
+  
+  useEffect(()=>{
+    async function fetchData(){
+      try{
+        const req = await fetch(url)
+        const produtos = await req.json()
+        console.log(produtos)
+        setProdutos(produtos)
+      }
+      catch(erro){
+        console.log(erro.message)
+      }
+    }
+    fetchData();
+  }, [])
 
   return (
     <div>
-      {/* <Navbarra /> */}
-      <h1>Lista de Produtos</h1>
+      <Navbarra />
+      <h1>Lista de produtos</h1>
       <Container>
-      <div
-        className="lista-produto d-flex col-12 gap-2 mt-2 justify-content-center flex-wrap">
-       
-        <CardProduto
+        <div className="lista-produtos d-flex col-12 gap-2 mt-3 justify-content-start flex-wrap">
+          {/* Card com informações fixas */}
+          {/* <CardProduto
           id="1"
-          nome="Carne"
-          preco="99,99"
-          descricao="E uma carne para carnivoro"
-          categoria="Carnívoro"
-          imagemUrl="https://i0.wp.com/www.sindicatoruraldebelavista.com.br/wp-content/uploads/2016/10/carne-vermelha-450x324-1.jpg?fit=450%2C324&ssl=1"/>
+          nome="Shampoo Cr7"
+          descricao="Melhor shampoo do mundo"
+          preco="7,77"
+          categoria="Saúde e beleza"
+          imagemUrl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAiGeCC3KhBPz8xa_dcPdPor2D__CuueBzeA&s"
+        /> */}
 
-        {produtos.map((prod)=>
-          <CardProduto 
-          id={prod.id}
-          nome={prod.nome} 
-          preco={prod.preco} 
-          descricao={prod.descricao}
-          categoria={prod.categoria}
-          imagemUrl={prod.imagemUrl}
-          />
-        )}
-        
-      </div>
+          {/* Card com informações variáveis */}
+          {produtos.map((prod) => (
+            <CardProduto
+              key={prod.id}
+              id={prod.id}
+              nome={prod.nome}
+              descricao={prod.descricao}
+              preco={prod.preco}
+              categoria={prod.categoria}
+              imagemUrl={prod.imagemUrl}
+            />
+          ))}
+        </div>
       </Container>
     </div>
   );

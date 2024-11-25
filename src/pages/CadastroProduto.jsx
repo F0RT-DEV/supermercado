@@ -7,67 +7,85 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Alert from "react-bootstrap/Alert";
 import Image from "react-bootstrap/Image";
-import { useState } from "react";
 
 // Importação de componentes
 import Navbarra from "../components/Navbarra";
+
+// Importando o hook useState para monitorar a mudança das variáveis
+import { useState, useEffect} from "react";
+
+//Importação do navigate pra transitar entre páginas
 import { useNavigate } from "react-router-dom";
+
+const url = "http://localhost:5000/Categorias"
 
 const CadastroProduto = () => {
   //Lista com categorias
-  const cats = [
-    { id: 1, nome: "Eletrônicos" },
-    { id: 2, nome: "Moda e Vestuário" },
-    { id: 3, nome: "Alimentos e Bebidas" },
-    { id: 4, nome: "Saúde e Beleza" },
-    { id: 5, nome: "Esportes e lazer" },
-    { id: 6, nome: "Brinquedos e jogos" },
-    { id: 7, nome: "Livros e papelaria" },
-  ];
+  const [categorias, setCategorias] = useState([])
+
+  useEffect(()=>{
+    async function fetchData(){
+      try{
+        const req = await fetch(url)
+        const cate = await req.json()
+        console.log(cate)
+        setCategorias(cate)
+      }
+      catch(erro){
+        console.log(erro.message)
+      }
+    }
+    fetchData();
+  }, [])
 
   //Link produto sem imagem
   const linkImagem =
     "https://www.malhariapradense.com.br/wp-content/uploads/2017/08/produto-sem-imagem.png";
 
-  //Variaveis para o produto
+  //Variáveis para o produto
   const [nome, setNome] = useState("");
   const [descricao, setDescricao] = useState("");
   const [categoria, setCategoria] = useState("");
   const [preco, setPreco] = useState("");
   const [imagem, setImagem] = useState("");
-
+  
   //Variáveis para o alerta
   const [alertClass, setAlertClass] = useState("mb-3 d-none");
   const [alertMensagem, setAlertMensagem] = useState("");
   const [alertVariant, setAlertVariant] = useState("danger");
 
+  // Criando o navigate
   const navigate = useNavigate();
 
+  //Função pra lidar com recarregamento da página
   const handleSubmit = async (e) => {
+    //Previne a página de ser recarregada
     e.preventDefault();
-    if (nome !== "") {
-      if (descricao !== "") {
-        if (preco !== "") {
-            const produto = {nome, descricao,categoria,preco,imagem}
-            console.log(produto)
-            setAlertClass("mb-3 mt-2");
-            setAlertVariant("success")
-            setAlertMensagem("Produto cadastrado com sucesso");
-            alert("Produto cadastrado com sucesso");
-            navigate("/home")
+
+    if (nome != "") {
+      if (descricao != "") {
+        if (preco != "") {
+          const produto = { nome, descricao, categoria, preco, imagem };
+          console.log(produto);
+          setAlertClass("mb-3 mt-2");
+          setAlertVariant("success");
+          setAlertMensagem("Produto cadastrado com sucesso");
+          alert("Produto cadastrado com sucesso");
+          navigate("/home");
         } else {
           setAlertClass("mb-3 mt-2");
-          setAlertMensagem("Preencha o campo preço!");
+          setAlertMensagem("O campo preço não pode ser vazio");
         }
       } else {
         setAlertClass("mb-3 mt-2");
-        setAlertMensagem("Preencha o campo descrição!");
+        setAlertMensagem("O campo descrição não pode ser vazio");
       }
     } else {
       setAlertClass("mb-3 mt-2");
-      setAlertMensagem("Preencha o campo nome!");
+      setAlertMensagem("O campo nome não pode ser vazio");
     }
   };
+
   return (
     <div>
       <Navbarra />
@@ -86,7 +104,9 @@ const CadastroProduto = () => {
                   type="text"
                   placeholder="Digite o nome do produto"
                   value={nome}
-                  onChange={(e)=>{setNome(e.target.value)}}
+                  onChange={(e) => {
+                    setNome(e.target.value);
+                  }}
                 />
               </FloatingLabel>
 
@@ -100,17 +120,24 @@ const CadastroProduto = () => {
                   type="text"
                   placeholder="Digite a descrição do produto"
                   value={descricao}
-                  onChange={(e)=>{setDescricao(e.target.value)}}
+                  onChange={(e) => {
+                    setDescricao(e.target.value);
+                  }}
                 />
               </FloatingLabel>
 
               {/* Select de categorias */}
               <Form.Group controlId="formGridTipo" className="mb-3">
                 <Form.Label>Tipo de produto</Form.Label>
-                <Form.Select>
-                  {cats.map((cat) => (
-                    <option key={cat.id} value={cat.nome}>
-                      {cat.nome}
+                <Form.Select
+                  value={categoria}
+                  onChange={(e) => {
+                    setCategorias(e.target.value);
+                  }}
+                >
+                  {categorias.map((cate) => (
+                    <option key={cate.id} value={cate.nome}>
+                      {cate.nome}
                     </option>
                   ))}
                 </Form.Select>
@@ -121,15 +148,15 @@ const CadastroProduto = () => {
                 controlId="floatingInputPreco"
                 label="Preço"
                 className="mb-3"
-                value={categoria}
-                onChange={(e)=>{setCategoria(e.target.value)}}
               >
                 <Form.Control
                   type="number"
                   step="0.1"
                   placeholder="Digite o preco"
                   value={preco}
-                  onChange={(e)=>{setPreco(e.target.value)}}
+                  onChange={(e) => {
+                    setPreco(e.target.value);
+                  }}
                 />
               </FloatingLabel>
             </Col>
@@ -145,11 +172,18 @@ const CadastroProduto = () => {
                     type="text"
                     placeholder="Envie o link da imagem do produto"
                     value={imagem}
-                    onChange={(e)=>{setImagem(e.target.value)}}
+                    onChange={(e) => {
+                      setImagem(e.target.value);
+                    }}
                   />
                 </FloatingLabel>
 
-                <Image src={linkImagem} rounded width={300} height={300} />
+                <Image
+                  src={imagem == "" ? linkImagem : imagem}
+                  rounded
+                  width={300}
+                  height={300}
+                />
               </Form.Group>
             </Col>
           </Row>

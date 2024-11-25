@@ -1,31 +1,30 @@
-// importação do bootstrap
-import 'bootstrap/dist/css/bootstrap.min.css';
+// Importação do bootstrap
+import "bootstrap/dist/css/bootstrap.min.css";
 
-// importação do estilo css
-import './App.css';
+//Importação estilo CSS padrão
+import "./App.css";
 
-// importação das paginas
-import Login from './pages/Login';
-import Home from './pages/Home';
+// Importação de páginas
+import Login from "./pages/Login";
+import Home from "./pages/Home";
 import CadastroProduto from "./pages/CadastroProduto";
 import EditarProduto from "./pages/EditarProduto";
+import VerUse from "./pages/VerUse";
 
-// importação de componentes
-import Navbarra from './components/Navbarra';
-
-// importação do gerenciador de rotas
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+//Importação do gerenciador de rotas
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
   return (
     <div className="App">
-        <BrowserRouter>
+      <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login />}/>
           <Route path="/login" element={<Login />}/>  
           <Route path="/home" element={<Home />}/> 
           <Route path="/produto/cadastrar" element={<CadastroProduto />}/>  
-          <Route path="/produto/editar/:id" element={<EditarProduto />}/>     
+          <Route path="/produto/editar/:id" element={<EditarProduto />}/>   
+          {/* <Route path="/veruse" element={<VerUse />}/>     */}
         </Routes>
       </BrowserRouter>
     </div>

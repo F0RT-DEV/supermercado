@@ -1,35 +1,38 @@
+// importando components do bootstrap
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 
-
-const Navbarra = () => {
+const NavBarra = () => {
   const usuarioNome = localStorage.getItem("userName")
-  return (
+    return (
     <div>
       <Navbar expand="lg" bg="success" data-bs-theme="dark">
         <Container>
-          <span className="material-symbols-outlined" style={{fontSize:"40px", color:"white"}}> 
+          {/* Icone mercado */}
+          <span
+            className="material-symbols-outlined"
+            style={{ fontSize: "40px", color: "white" }}
+          >
             store
           </span>
+          {/* Texto logo */}
+          <Navbar.Brand href="/home">C&G Mercados</Navbar.Brand>
 
-          <Navbar.Brand href="/home">Super&Fort</Navbar.Brand>
           <Navbar.Toggle aria-controls="minha-nav" />
           <Navbar.Collapse id="minha-nav">
-
-          {/* Paginas */}
-          <Nav className="me-auto">
-            <Nav.Link className="active" href="/Produtos">Produtos</Nav.Link>
-            <Nav.Link  href="/produto/cadastrar">Cadastros</Nav.Link>
-          </Nav>
-
-          {/* sair */}
-          <Nav className="justify-content-end">
-            <Nav.Text style={{color:"white"}}>
-              {/* Usuário:{usuarioNome} */}
-            </Nav.Text>
-            <Nav.Link href="/Login">Sair</Nav.Link>
-          </Nav>
+            {/* Paginas */}
+            <Nav className="me-auto">
+              <Nav.Link href="/home" className="active">Produtos</Nav.Link>
+              <Nav.Link href="/produto/cadastrar">Cadastro</Nav.Link>
+            </Nav>
+            {/* Sair */}
+            <Nav className="justify-content-end">
+              <Navbar.Text style={{color:"white"}}>
+                Usuário: {usuarioNome} |
+              </Navbar.Text>
+              <Nav.Link href="/login">Sair</Nav.Link>
+            </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
@@ -37,4 +40,4 @@ const Navbarra = () => {
   );
 };
 
-export default Navbarra;
+export default NavBarra;

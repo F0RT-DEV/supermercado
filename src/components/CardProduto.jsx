@@ -1,36 +1,35 @@
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 
-const CardProduto = (propos) => {
+const CardProduto = (props) => {
   return (
     <div>
-      <Card style={{ width: "16rem", height: "30rem"}}>
-        {/* imagem do card */}
-        <Card.Img variant="top" src={propos.imagemUrl} height="200px" />
+      <Card style={{ width: "16rem", height: "30rem" }}>
+        {/* Imagem do Card */}
+        <Card.Img variant="top" src={props.imagemUrl} height="200px" />
 
         <Card.Body>
-          <Card.Title>{propos.nome}</Card.Title>
-
+          {/* Título do card com nome do produto */}
+          <Card.Title>{props.nome}</Card.Title>
+          {/* Subtitulo no card com preco do produto */}
           <Card.Subtitle className="mb-2 text-muted">
-            Preço: {propos.preco}
+            Preço: {props.preco}
           </Card.Subtitle>
-
           <Card.Text>
-            <b>Descrição:</b>
-            <br></br> {propos.descricao}
+            <b> Descrição: </b> <br></br> {props.descricao}
+          </Card.Text>
+          <Card.Text>
+            <b> Categoria: </b> <br></br> {props.categoria}
           </Card.Text>
 
-          <Card.Text>
-            <b>Categoria:</b>
-            <br></br> {propos.categoria}
-          </Card.Text>
-
-            <Card.Link href="/login">
-            <Button variant="success">Comprar</Button>
-            </Card.Link>
-          <Card.Link href="/login">
-          <Button variant="danger">Excluir</Button>
+          <Card.Link href="/home">
+            <Button variant="warning">Editar</Button>
           </Card.Link>
+
+          <Card.Link href="/home">
+            <Button variant="danger">Excluir</Button>
+          </Card.Link>
+
         </Card.Body>
       </Card>
     </div>
