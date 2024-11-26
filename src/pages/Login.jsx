@@ -14,6 +14,11 @@ import { useNavigate } from "react-router-dom";
 const url = "http://localhost:5000/usuarios"
 
 const Login = () => {
+  
+  //Resetar localStorage
+  localStorage.removeItem("useName")
+  localStorage.removeItem("email")
+
   //Variáveis pra guardar as informações digitadas pelo usuário
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
