@@ -58,7 +58,7 @@ const CadastroProduto = () => {
   const navigate = useNavigate();
 
   
-  //Função pra lidar com recarregamento da página
+  //Função pra lidar com o envio dos dados
   const handleSubmit = async (e) => {
     //Previne a página de ser recarregada
     e.preventDefault();
@@ -80,7 +80,7 @@ const CadastroProduto = () => {
             setAlertVariant("success");
             setAlertMensagem("Produto cadastrado com sucesso");
             alert("Produto cadastrado com sucesso");
-            //navigate("/home")
+            navigate("/home")
           } catch (error) {
             console.log(error);
           }
